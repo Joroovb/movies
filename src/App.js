@@ -1,7 +1,55 @@
 import React from "react";
+import GridList from "./GridList";
+import SearchBar from "./SearchBar";
+import Movie from "./Movie";
 
-const App = () => {
-  return <h1>Hello World</h1>;
+import{
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
+import "./App.css";
+import movieList from "./movieList";
+
+class App extends React.Component {
+
+  state = {
+    list: movieList
+  }
+
+  filterList = (searchTerm) => {
+    const newList = movieList.filter(movie => {
+      if(movie.title.toLowerCase().split(' ').join('').indexOf(searchTerm.toLowerCase().split(' ').join('')) !== -1) {
+        return movie;
+      }
+    });
+    this.setState({list: newList});
+  }
+
+  render() {
+     return(
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <main>
+            <SearchBar filterList={this.filterList} placeholder="Search for a movie title" />
+            <GridList movieList={this.state.list} />
+            <Link to="/about"><h3>About this project</h3></Link>
+          </main>
+        </Route>
+        <Route exact path="/about">
+          <h1>Made by Joris</h1>
+          <Link to="/="><h3>Home</h3></Link>
+        </Route>
+        <Route exact path="/movie/:movieId" component={Movie} />
+        <Redirect to="/"/>
+      </Switch>
+    </Router>
+    );
+  }
 }
 
 export default App;

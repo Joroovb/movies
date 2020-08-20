@@ -1,0 +1,17 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body{
+  font-size: 1.6rem;
+  background-color: #222831;
+  color: #eeeeee;
+  padding: 4rem;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
